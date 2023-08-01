@@ -40,7 +40,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="botonSeguir btn" data-bs-dismiss="modal">Seguir<br/>Comprando</button>
-                    <button type="button" class="botonTerminar btn" data-bs-dismiss="modal">Terminar<br/>Compra</button>
+                    <button type="button" class="botonTerminar btn" data-bs-dismiss="modal" onclick="terminar()">Terminar<br/>Compra</button>
                 </div>
             </div>
         </div>
@@ -53,6 +53,46 @@
                 <a href="#"><i class="fa-solid fa-cart-shopping" style="color: #8bacda;"></i><a>
             </div>
         </header>
+    </div>
+
+    <div>
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a id="inicio" class="navbar-brand" href="#">Inicio</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a id="feminizadas" class="nav-link botonMenu" href="#">Feminizadas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="regulares" class="nav-link botonMenu" href="#">Regulares</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="sativas" class="nav-link botonMenu" href="#">Sativas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="hibridas" class="nav-link botonMenu" href="#">Hibridas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="indicas" class="nav-link botonMenu" href="#">Indicas</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ordenar
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Producción</a></li>
+                                <li><a class="dropdown-item" href="#">Precio</a></li>
+                                <li><a class="dropdown-item" href="#">% THC</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </div>
 
     <div class="container-fluid">
