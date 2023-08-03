@@ -22,31 +22,25 @@ body .modal-content .table {
 body .modal-content .table tbody {
   color: hsl(0, 0%, 100%);
 }
-body .modal-content .btn {
+body .modal-content .modal-footer {
+  position: relative;
+}
+body .modal-content .modal-footer .btn {
   padding: 5px 10px;
   border-radius: 10px;
   box-shadow: 0px 3px 10px hsl(0, 0%, 100%);
   color: hsl(0, 0%, 100%);
+}
+body .modal-content .modal-footer .terminarCompra {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
 }
 body header {
   height: 100px;
   padding: 0px 30px;
   border-bottom: 2px solid hsl(216, 50%, 16%);
   box-shadow: 0px 5px 20px hsl(0, 0%, 100%);
-}
-body header .logo {
-  color: hsl(215, 51%, 70%);
-  font-size: 22px;
-  font-family: "Dancing Script", cursive;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-@media only screen and (min-width: 960px) {
-  body header .logo {
-    font-size: 32px;
-  }
 }
 @media only screen and (min-width: 660px) {
   body header {
@@ -59,30 +53,46 @@ body header .logo {
     height: 150px;
   }
 }
-body header .carrito {
+body header .navbar {
+  font-size: 25px;
+}
+body header .navbar a {
+  color: hsl(215, 51%, 70%);
+}
+body header .navbar .logo {
+  color: hsl(215, 51%, 70%);
+  font-size: 22px;
+  font-family: "Dancing Script", cursive;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+@media only screen and (min-width: 960px) {
+  body header .navbar .logo {
+    font-size: 32px;
+  }
+}
+body header .navbar .carrito {
   font-size: 25px;
   position: relative;
 }
-body header .carrito .fa-cart-shopping {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-}
 @media only screen and (min-width: 660px) {
-  body header .carrito .fa-cart-shopping {
+  body header .navbar .carrito {
     font-size: 30px;
-    top: 20px;
   }
 }
 @media only screen and (min-width: 960px) {
-  body header .carrito .fa-cart-shopping {
-    top: 50px;
-    right: 60px;
+  body header .navbar .carrito {
     font-size: 40px;
   }
+}
+body header .navbar .collapse {
+  justify-content: right;
+}
+body header .navbar .collapse .dropdown-menu {
+  background-color: hsl(217, 54%, 11%);
+  border-color: hsl(215, 51%, 70%);
 }
 body main {
   padding: 50px 40px;

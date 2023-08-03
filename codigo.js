@@ -2,8 +2,9 @@
 let tarjetaCepas = document.getElementById('tarjeta');
 let tablaBody = document.getElementById('tablabody');
 let totalCompra = document.getElementById('total');
-let botonTerminar = document.getElementsByClassName('botonTerminar');
+let botonVaciarCarro = document.getElementsByClassName('botonVaciar');
 
+// STOCK
 
 function renderizarCepas(stock){
     tarjetaCepas.innerHTML =``
@@ -54,52 +55,33 @@ renderizarCepas(cepas);
 
 // MENU
 
-let botonFeminizadas = document.getElementById('feminizadas');
-let botonRegulares = document.getElementById('regulares');
-let botonSativas = document.getElementById('sativas');
-let botonHibridas = document.getElementById('hibridas');
-let botonIndicas = document.getElementById('indicas');
-let botonInicio = document.getElementById('inicio');
+const botonesMenu = document.querySelectorAll (".botonMenu");
 
-botonFeminizadas.addEventListener('click',()=>{
-    const feminizadas = cepas.filter (cepa=> cepa.sexo === 'Feminizada');
-    console.log(feminizadas);
-    renderizarCepas(feminizadas);
-    }
-)
+botonesMenu.forEach(opcion => {
+    opcion.addEventListener ("click",() => {
+        
+        if (opcion.id === 'inicio'){
+            renderizarCepas(cepas);
+        } else if (opcion.id === 'feminizadas'){
+            const feminizadas = cepas.filter (cepa=> cepa.sexo === 'Feminizada');
+            renderizarCepas(feminizadas);
+        } else if (opcion.id === 'regulares'){
+            const regulares = cepas.filter (cepa=> cepa.sexo === 'Regular');
+            renderizarCepas(regulares);
+        } else if (opcion.id === 'sativas'){
+            const sativas = cepas.filter (cepa=> cepa.tipo === 'Sativa');
+            renderizarCepas(sativas);
+        } else if (opcion.id === 'hibridas'){
+            const hibridas = cepas.filter (cepa=> cepa.tipo === 'Hibrida');
+            renderizarCepas(hibridas);
+        }  else if (opcion.id === 'indicas'){
+            const indicas = cepas.filter (cepa=> cepa.tipo === 'Indica');
+            renderizarCepas(indicas);
+        }
+    })
+});
 
-botonRegulares.addEventListener('click',()=>{
-    const regulares = cepas.filter (cepa=> cepa.sexo === 'Regular');
-    console.log(regulares);
-    renderizarCepas(regulares);
-    }
-)
-
-botonSativas.addEventListener('click',()=>{
-    const sativas = cepas.filter (cepa=> cepa.tipo === 'Sativa');
-    console.log(sativas);
-    renderizarCepas(sativas);
-    }
-)
-
-botonHibridas.addEventListener('click',()=>{
-    const hibridas = cepas.filter (cepa=> cepa.tipo === 'Hibrida');
-    console.log(hibridas);
-    renderizarCepas(hibridas);
-    }
-)
-
-botonIndicas.addEventListener('click',()=>{
-    const indicas = cepas.filter (cepa=> cepa.tipo === 'Indica');
-    console.log(indicas);
-    renderizarCepas(indicas);
-    }
-)
-
-botonInicio.addEventListener('click',()=>{
-    renderizarCepas(cepas);
-    }
-)
+//CARRITO
 
 let botonesDeCompra = document.getElementsByClassName('comprar');
     for (const boton of botonesDeCompra){
@@ -109,21 +91,23 @@ let botonesDeCompra = document.getElementsByClassName('comprar');
         });
     }
 
-function agregarACarrito(cepa){
-    carrito.push(cepa); 
+function agregarACarrito(semilla){
+    carrito.push(semilla); 
     tablaBody.innerHTML +=`
         <tr>
-            <td>${cepa.nombre}</td>
-            <td>${cepa.precio}</td>
+            <td>${semilla.nombre}</td>
+            <td>${semilla.precio}</td>
         </tr>`;
-    const sumaTotal = carrito.reduce((acumulador,cepa)=>acumulador+cepa.precio,0);
+    const sumaTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
     totalCompra.innerHTML = sumaTotal;
 }
 
-function terminar(){
+function vaciarCarro(){
     carrito.splice(0, carrito.length);
     tablaBody.innerHTML =`
         `;
+    totalCompra.innerHTML = `
+    `;    
 }
 
 

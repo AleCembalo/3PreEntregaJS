@@ -40,25 +40,20 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="botonSeguir btn" data-bs-dismiss="modal">Seguir<br/>Comprando</button>
-                    <button type="button" class="botonTerminar btn" data-bs-dismiss="modal" onclick="terminar()">Terminar<br/>Compra</button>
+                    <button type="button" class="botonVaciarCarro btn" onclick="vaciarCarro()">Vaciar<br/>Carro</button>
+                    <button type="button" class="terminarCompra btn">Terminar<br/>Compra</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container-fluid">
-        <header class="row">
-            <div class="logo col-4">Chemba<span>Strain</span></div>
-            <div class="carrito col-2 offset-6">
-                <a href="#"><i class="fa-solid fa-cart-shopping" style="color: #8bacda;"></i><a>
-            </div>
-        </header>
-    </div>
-
-    <div>
-        <nav class="navbar navbar-expand-lg bg-light">
+    <header>
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a id="inicio" class="navbar-brand" href="#">Inicio</a>
+                <a id="inicio" class="navbar-brand botonMenu logo" href="#">Chemba<span>Strain</span></a>
+                <div class="carrito">
+                    <a href="#"><i class="fa-solid fa-cart-shopping" style="color: #8bacda;"></i><a>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -93,7 +88,7 @@
                 </div>
             </div>
         </nav>
-    </div>
+    </header>
 
     <div class="container-fluid">
         <main id="tarjeta" class="row">
