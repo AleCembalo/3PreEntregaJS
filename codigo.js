@@ -1,48 +1,45 @@
 
 let tarjetaCepas = document.getElementById('tarjeta');
-let tablaBody = document.getElementById('tablabody');
-let totalCompra = document.getElementById('total');
-let botonVaciarCarro = document.getElementsByClassName('botonVaciar');
 
 // STOCK
 
 function renderizarCepas(stock){
     tarjetaCepas.innerHTML =``
-    for (const cepa of stock){
+    for (const item of stock){
         tarjetaCepas.innerHTML += `
                     <section class="col-sm-12 col-md-6 col-lg-4 col-xl-4 tarjeta">    
                         <div class="imagen">
-                        <img class="coco" src="${cepa.foto}" alt="cepaFoto">
+                        <img class="coco" src="${item.foto}" alt="cepaFoto">
                             <div class="icono">
-                                <strong>PACK X 3<br>$ ${cepa.precio}</strong>
+                                <strong>PACK X 3<br>$ ${item.precio}</strong>
                             </div>
                         </div>
                         <div class="texto1">
-                            ${cepa.nombre}
+                            ${item.nombre}
                         </div>
                         <div class="texto2">
-                            ${cepa.familia}
+                            ${item.familia}
                         </div>
                         <div class="texto3">
                             <div class="izquierda">
                                 <div>
-                                    THC ${cepa.thc}%
+                                    THC ${item.thc}%
                                 </div>
                             </div>
                             <div class="centro">
                                 <div>
-                                    CBD ${cepa.cbd}%
+                                    CBD ${item.cbd}%
                                 </div>
                             </div>
                             <div class="derecha">
                                 <div>
-                                    ${cepa.tipo}
+                                    ${item.tipo}
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <div class="texto4">
-                            <button id=${cepa.id} type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="comprar">
+                            <button id=${item.id} type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="comprar">
                                 <i class="fa-solid fa-cart-arrow-down" style="color: #ffffff;"></i>
                                 <span>Agregar al carrito</span>
                             </button>
@@ -83,6 +80,8 @@ botonesMenu.forEach(opcion => {
 
 //CARRITO
 
+let totalCompra = document.getElementById('total');
+
 let botonesDeCompra = document.getElementsByClassName('comprar');
     for (const boton of botonesDeCompra){
         boton.addEventListener('click',()=>{
@@ -91,6 +90,7 @@ let botonesDeCompra = document.getElementsByClassName('comprar');
         });
     }
 
+let tablaBody = document.getElementById('tablabody');    
 function agregarACarrito(semilla){
     carrito.push(semilla); 
     tablaBody.innerHTML +=`
