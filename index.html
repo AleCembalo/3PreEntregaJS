@@ -18,7 +18,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">TU CARRITO</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" data-bs-dismiss="modal"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></button>
                 </div>
 
                 <!-- Modal body -->
@@ -41,7 +41,7 @@
                 <div class="modal-footer">
                     <button type="button" class="botonSeguir btn" data-bs-dismiss="modal">Seguir<br/>Comprando</button>
                     <button type="button" class="botonVaciarCarro btn" onclick="vaciarCarro()">Vaciar<br/>Carro</button>
-                    <button type="button" class="terminarCompra btn">Terminar<br/>Compra</button>
+                    <button type="button" class="terminarCompra btn" data-bs-dismiss="modal">Terminar<br/>Compra</button>
                 </div>
             </div>
         </div>
@@ -52,10 +52,10 @@
             <div class="container-fluid">
                 <a id="inicio" class="navbar-brand botonMenu logo" href="#">Chemba<span>Strain</span></a>
                 <div class="carrito">
-                    <a href="#"><i class="fa-solid fa-cart-shopping" style="color: #8bacda;"></i><a>
+                    <button data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-solid fa-cart-shopping" style="color: #8bacda;"></i></button>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span><i class="fa-solid fa-bars fa-spin fa-spin-reverse" style="color: #8bacda;"></i></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
@@ -74,16 +74,15 @@
                         <li class="nav-item">
                             <a id="indicas" class="nav-link botonMenu" href="#">Indicas</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Ordenar
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Producción</a></li>
-                                <li><a class="dropdown-item" href="#">Precio</a></li>
-                                <li><a class="dropdown-item" href="#">% THC</a></li>
+                                <li><a id="precio" class="dropdown-item botonOrden" href="#">Precio</a></li>
+                                <li><a id="thc" class="dropdown-item botonOrden" href="#">% THC</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>

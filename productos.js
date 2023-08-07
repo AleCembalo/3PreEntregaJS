@@ -39,4 +39,3 @@ const cepa19 = new cepa(19, './Multimedia/imagenes-tarjetas/Sour-Tangie.png', 'S
 const cepa20 = new cepa(20, './Multimedia/imagenes-tarjetas/Blueberry-Kush.png', 'Blueberry Kush', 'Indica', 18, 1, 'Regular', 'XL', 'Aka Blueberry OG Kush.', 7600);
 
 const cepas = [cepa1, cepa2, cepa3, cepa4, cepa5, cepa6, cepa7, cepa8, cepa9, cepa10, cepa11, cepa12, cepa13, cepa14, cepa15, cepa16, cepa17, cepa18, cepa19, cepa20];
-const carrito = [];
