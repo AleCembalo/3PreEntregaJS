@@ -105,6 +105,14 @@ botonesMenu.forEach(opcion => {
 
 //CARRITO
 
+botonesDeCompra = document.getElementsByClassName('comprar');
+    for (const boton of botonesDeCompra){
+        boton.addEventListener('click',()=>{
+        const semaAlCarro = cepas.find((cepa) => cepa.id == boton.id);
+        agregarACarrito(semaAlCarro);
+        });
+    }
+
 function actualizarBotonesEliminar() {
     botonesEliminar = document.querySelectorAll(".botonEliminar");
 
@@ -121,27 +129,23 @@ function actualizarTotal() {
     totalCompra.innerHTML = sumaTotal;
 }
 
-botonesDeCompra = document.getElementsByClassName('comprar');
-    for (const boton of botonesDeCompra){
-        boton.addEventListener('click',()=>{
-        const semaAlCarro = cepas.find((cepa) => cepa.id == boton.id);
-        agregarACarrito(semaAlCarro);
-        });
-    }
-
+function eliminarDelCarrito(){
     for (const boton of botonesEliminar){
         boton.addEventListener('click',()=>{
         const semaEliminada = carrito.find((cepa) => 'posicion'+carrito.indexOf(cepa) == boton.id);
-        eliminarDelCarrito(semaEliminada);
+        const index = carrito.indexOf(semaEliminada);
+        carrito.splice(index,1);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        carrito = JSON.parse(localStorage.getItem('carrito'));
+        document.getElementById('tablabody').innerHTML = ``;
+        cargarCarrito();
         });
     }
-
-function eliminarDelCarrito(){
-    const index = carrito.indexOf(cepa);
-    carrito.splice(index,1);
-    document.getElementById('tablabody').innerHTML +='';
-    localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarBotonesEliminar();
+    actualizarTotal();
 }
+eliminarDelCarrito();
+
 
 function agregarACarrito(semilla){
     carrito.push(semilla);
@@ -161,4 +165,5 @@ function vaciarCarro(){
     document.getElementById('tablabody').innerHTML ='';
     totalCompra.innerHTML = '';
     localStorage.removeItem('carrito');
+    actualizarTotal();
 }
