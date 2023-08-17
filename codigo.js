@@ -1,8 +1,9 @@
 
 let tarjetaCepas = document.getElementById('tarjeta');
+const botonesMenu = document.querySelectorAll (".botonMenu");
 let totalCompra = document.getElementById('total');
-let botonesEliminar = document.querySelectorAll(".botonEliminar");
-let botonesDeCompra = document.getElementsByClassName('comprar');
+let subTotal = document.getElementById('subTotal');
+let montoFinal = document.getElementById('montoFinal');
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 // RECUPERAR CARRO STORAGE
@@ -12,9 +13,10 @@ function cargarCarrito(){
         for (const prod of carrito){
             document.getElementById('tablabody').innerHTML +=`
             <tr>
+                <td><img class='fotocarro' src=${prod.foto}></td>
                 <td>${prod.nombre}</td>
                 <td>${prod.precio}</td>
-                <td><button id= ${'posicion'+carrito.indexOf(prod)} class='botonEliminar btn'>🗑️</button></td>
+                <td><button id=${prod.id}  class='botonEliminar btn'>🗑️</button></td>
             </tr>`;
         }    
         const sumaTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
@@ -63,24 +65,28 @@ function renderizarCepas(stock){
                         </div>
                         <hr>
                         <div class="texto4">
-                            <button id=${item.id} class="comprar">
+                            <button id='btn${item.id}' class="comprar">
                                 <i class="fa-solid fa-cart-arrow-down" style="color: #ffffff;"></i>
                                 <span>Agregar al carrito</span>
                             </button>
                         </div>
                     </section>`;
     }
+
+    cepas.forEach((item) => {
+        document.getElementById(`btn${item.id}`).addEventListener('click', () => {
+            agregarACarrito(item);
+        });
+    });
 }
 
 renderizarCepas(cepas);
 
 // MENU
 
-const botonesMenu = document.querySelectorAll (".botonMenu");
-
 botonesMenu.forEach(opcion => {
+
     opcion.addEventListener ("click",() => {
-        
         if (opcion.id === 'inicio'){
             renderizarCepas(cepas);
         } else if (opcion.id === 'feminizadas'){
@@ -95,30 +101,21 @@ botonesMenu.forEach(opcion => {
         } else if (opcion.id === 'hibridas'){
             const hibridas = cepas.filter (cepa=> cepa.tipo === 'Hibrida');
             renderizarCepas(hibridas);
-        }  else if (opcion.id === 'indicas'){
+        } else if (opcion.id === 'indicas'){
             const indicas = cepas.filter (cepa=> cepa.tipo === 'Indica');
             renderizarCepas(indicas);
         }
     })
 });
 
-
 //CARRITO
-
-botonesDeCompra = document.getElementsByClassName('comprar');
-    for (const boton of botonesDeCompra){
-        boton.addEventListener('click',()=>{
-        const semaAlCarro = cepas.find((cepa) => cepa.id == boton.id);
-        agregarACarrito(semaAlCarro);
-        });
-    }
 
 function actualizarBotonesEliminar() {
     botonesEliminar = document.querySelectorAll(".botonEliminar");
 
     botonesEliminar.forEach(boton => {
             boton.addEventListener('click',()=>{
-            const semaEliminada = carrito.find((cepa) => 'posicion'+carrito.indexOf(cepa) == boton.id);
+            const semaEliminada = carrito.find((cepa) => cepa.id == boton.id);
             eliminarDelCarrito(semaEliminada);
         });
     })
@@ -129,35 +126,58 @@ function actualizarTotal() {
     totalCompra.innerHTML = sumaTotal;
 }
 
-function eliminarDelCarrito(){
-    for (const boton of botonesEliminar){
-        boton.addEventListener('click',()=>{
-        const semaEliminada = carrito.find((cepa) => 'posicion'+carrito.indexOf(cepa) == boton.id);
-        const index = carrito.indexOf(semaEliminada);
-        carrito.splice(index,1);
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        carrito = JSON.parse(localStorage.getItem('carrito'));
-        document.getElementById('tablabody').innerHTML = ``;
-        cargarCarrito();
-        });
-    }
-    actualizarBotonesEliminar();
-    actualizarTotal();
+function actualizarSubTotal(){
+    let sumaSubTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
+    subTotal.innerHTML = sumaSubTotal;
 }
-eliminarDelCarrito();
 
+function actualizarBotonTerminar(){
+    document.getElementById(`terminarCompra`).addEventListener('click', () => {
+        mostrarCompraFinal(carrito);
+    });
+}
+
+function eliminarDelCarrito(sema){
+        const index = carrito.indexOf(sema);
+        carrito.splice(index,1);
+        document.getElementById('tablabody').innerHTML = ``;
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        cargarCarrito();
+        actualizarBotonTerminar();
+        actualizarSubTotal();
+        actualizarTotal();
+    }
 
 function agregarACarrito(semilla){
     carrito.push(semilla);
+    //SWEET ALERT
+    Swal.fire({
+        position: 'bottom-end',
+        icon: 'success',
+        iconColor: '#3085d6',
+        color: '#3085d6',
+        background:'#2f415b',
+        heightAuto: false,
+        toast: true,
+        title: `${semilla.nombre}, agregado al carrito!`,
+        showConfirmButton: false,
+        timer: 1500
+    })
+
     document.getElementById('tablabody').innerHTML +=`
         <tr>
+            <td><img class='fotocarro' src=${semilla.foto}></td>
             <td>${semilla.nombre}</td>
             <td>${semilla.precio}</td>
-            <td><button id= ${'posicion'+carrito.indexOf(semilla)} class='btn'>🗑️</button></td>
+            <td><button id= ${semilla.id} class='botonEliminar btn'>🗑️</button></td>
         </tr>`;
     const sumaTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
     totalCompra.innerHTML = sumaTotal;
     localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarBotonesEliminar();
+    actualizarTotal();
+    actualizarSubTotal();
+    actualizarBotonTerminar();
 }
 
 function vaciarCarro(){
@@ -165,5 +185,46 @@ function vaciarCarro(){
     document.getElementById('tablabody').innerHTML ='';
     totalCompra.innerHTML = '';
     localStorage.removeItem('carrito');
+    localStorage.setItem('carrito', JSON.stringify(carrito));
     actualizarTotal();
+    actualizarSubTotal();
 }
+
+document.getElementById(`terminarCompra`).addEventListener('click', () => {
+    mostrarCompraFinal(carrito);
+});
+
+function mostrarCompraFinal(){
+    document.getElementById('tablabodyTerminar').innerHTML =``
+    if (carrito.length != 0) {
+        for (const prod of carrito){
+            document.getElementById('tablabodyTerminar').innerHTML +=`
+            <tr>
+                <td>${prod.nombre}</td>
+                <td>${prod.precio}</td>
+            </tr>`;
+        }
+        actualizarSubTotal();
+        let sumaSubTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
+        subTotal.innerHTML = sumaSubTotal;
+    }
+}
+
+let sumaSubTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
+montoFinal.innerHTML = sumaSubTotal;
+
+document.getElementById(`flexRadioDefault1`).addEventListener('click', () => {
+    actualizarSubTotal();
+    montoFinal.innerHTML = sumaSubTotal + 3100;
+});
+
+document.getElementById(`flexRadioDefault2`).addEventListener('click', () => {
+    actualizarSubTotal();
+    montoFinal.innerHTML = sumaSubTotal + 3400;
+});
+
+document.getElementById(`flexRadioDefault3`).addEventListener('click', () => {
+    actualizarSubTotal();
+    montoFinal.innerHTML = sumaSubTotal;
+});
+

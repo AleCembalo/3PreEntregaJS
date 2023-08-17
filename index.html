@@ -10,9 +10,9 @@
 </head>
 
 <body>
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
-        <div class="modal-dialog modal-xl">
+    <!--Modal Carrito -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-m">
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -26,12 +26,14 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Pack x3</th>
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody id="tablabody">
+                            <!-- Tabla carrito  -->
                         </tbody>
                     </table>
                     <p>Total a pagar $: <strong id="total"></strong> </p>
@@ -41,7 +43,109 @@
                 <div class="modal-footer">
                     <button type="button" class="botonSeguir btn" data-bs-dismiss="modal">Seguir<br/>Comprando</button>
                     <button type="button" class="botonVaciarCarro btn" onclick="vaciarCarro()">Vaciar<br/>Carro</button>
-                    <button type="button" class="terminarCompra btn" data-bs-dismiss="modal">Terminar<br/>Compra</button>
+                    <button id="terminarCompra" class="btn btn-primary terminarCompra" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button">Terminar<br/>Compra</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Terminar Compra -->
+    <div class="modal fade" id="exampleModal">
+        <div class="modal-dialog modal-m">
+            <div class="modal-content">
+
+                <!-- Modal Header  -->
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">TU PEDIDO</h1>
+                    <button type="button" data-bs-dismiss="modal"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Productos</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablabodyTerminar">
+                            <!-- tablaTerminar -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Subtotal</th>
+                                <th id="subTotal"></th>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h4>FORMA DE PAGO</h4>
+                                    <ul>
+                                        <li>
+                                            <input class="form-check-input" type="radio" name="modoDePago" id="flexRadioDefault4">
+                                            <label class="form-check-label" for="flexRadioDefault4">
+                                                Efectivo
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input class="form-check-input" type="radio" name="modoDePago" id="flexRadioDefault5">
+                                            <label class="form-check-label" for="flexRadioDefault5">
+                                                Transferencia
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input class="form-check-input" type="radio" name="modoDePago" id="flexRadioDefault6">
+                                            <label class="form-check-label" for="flexRadioDefault6">
+                                                Tarjeta
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h4>ENVIO</h4>
+                                    <ul>
+                                        <li>
+                                            <input class="form-check-input radioEnvio" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                            <label class="form-check-label radioEnvio" for="flexRadioDefault1">
+                                                Envio por Oca:
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input class="form-check-input radioEnvio" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                            <label class="form-check-label radioEnvio" for="flexRadioDefault2">
+                                                Envio por Andreani:
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input class="form-check-input radioEnvio" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                            <label class="form-check-label radioEnvio" for="flexRadioDefault3">
+                                                Retiro por el local
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <span id="oca">$3100</span>
+                                    <br>
+                                    <span id="andreani">$3400</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>TOTAL</th>
+                                <th>
+                                    <strong id="montoFinal">
+                                        
+                                    </strong>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Finalizar</button>
                 </div>
             </div>
         </div>
@@ -103,6 +207,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./productos.js"></script>
     <script src="./codigo.js"></script>
     
