@@ -24,6 +24,8 @@ function cargarCarrito(){
     }
     actualizarBotonesEliminar();
     actualizarTotal();
+    actualizarBotonTerminar();
+    actualizarSubTotal();
 }
 cargarCarrito();
 
@@ -108,7 +110,8 @@ botonesMenu.forEach(opcion => {
     })
 });
 
-//CARRITO
+// CARRITO
+// ACTUALIZAR
 
 function actualizarBotonesEliminar() {
     botonesEliminar = document.querySelectorAll(".botonEliminar");
@@ -121,20 +124,20 @@ function actualizarBotonesEliminar() {
     })
 }
 
+function actualizarBotonTerminar(){
+    document.getElementById('terminarCompra').addEventListener('click', () => {
+        mostrarCompraFinal(carrito);
+    });
+}
+
 function actualizarTotal() {
     const sumaTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
     totalCompra.innerHTML = sumaTotal;
 }
 
 function actualizarSubTotal(){
-    let sumaSubTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
+    const sumaSubTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
     subTotal.innerHTML = sumaSubTotal;
-}
-
-function actualizarBotonTerminar(){
-    document.getElementById(`terminarCompra`).addEventListener('click', () => {
-        mostrarCompraFinal(carrito);
-    });
 }
 
 function eliminarDelCarrito(sema){
@@ -143,9 +146,6 @@ function eliminarDelCarrito(sema){
         document.getElementById('tablabody').innerHTML = ``;
         localStorage.setItem('carrito', JSON.stringify(carrito));
         cargarCarrito();
-        actualizarBotonTerminar();
-        actualizarSubTotal();
-        actualizarTotal();
     }
 
 function agregarACarrito(semilla){
@@ -190,9 +190,9 @@ function vaciarCarro(){
     actualizarSubTotal();
 }
 
-document.getElementById(`terminarCompra`).addEventListener('click', () => {
-    mostrarCompraFinal(carrito);
-});
+// document.getElementById(`terminarCompra`).addEventListener('click', () => {
+//     mostrarCompraFinal(carrito);
+// });
 
 function mostrarCompraFinal(){
     document.getElementById('tablabodyTerminar').innerHTML =``
@@ -204,27 +204,45 @@ function mostrarCompraFinal(){
                 <td>${prod.precio}</td>
             </tr>`;
         }
-        actualizarSubTotal();
-        let sumaSubTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
+        const sumaSubTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
         subTotal.innerHTML = sumaSubTotal;
+        montoFinal.innerHTML = '$'+sumaSubTotal;
     }
+    elegirEnvio();
 }
 
-let sumaSubTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
-montoFinal.innerHTML = sumaSubTotal;
+// function elegirFormaDePago (){
 
-document.getElementById(`flexRadioDefault1`).addEventListener('click', () => {
-    actualizarSubTotal();
-    montoFinal.innerHTML = sumaSubTotal + 3100;
-});
+//     const sumaSubTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
+//     montoFinal.innerHTML = sumaSubTotal;    
+//     document.getElementById(`flexRadioDefault4`).addEventListener('click', () => {
+//         actualizarSubTotal();
+//         montoFinal.innerHTML = '$'+(sumaSubTotal * 0.9).toFixed(2);
+//     });
+//     document.getElementById(`flexRadioDefault5`).addEventListener('click', () => {
+//         actualizarSubTotal();
+//         montoFinal.innerHTML = '$'+(sumaSubTotal);
+//     });
+//     document.getElementById(`flexRadioDefault6`).addEventListener('click', () => {
+//         actualizarSubTotal();
+//         montoFinal.innerHTML = '$'+(sumaSubTotal * 0.9).toFixed(2);
+//     });
+// }
+// elegirFormaDePago();
 
-document.getElementById(`flexRadioDefault2`).addEventListener('click', () => {
-    actualizarSubTotal();
-    montoFinal.innerHTML = sumaSubTotal + 3400;
-});
+function elegirEnvio (){
+    const radiosEnvio = document.getElementsByTagName('input');
+    const sumaSubTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
 
-document.getElementById(`flexRadioDefault3`).addEventListener('click', () => {
-    actualizarSubTotal();
-    montoFinal.innerHTML = sumaSubTotal;
-});
-
+    for (const radio of radiosEnvio){
+        radio.addEventListener('click',()=>{
+            if (radio.id === 'flexRadioDefault1'){
+                montoFinal.innerHTML = sumaSubTotal + 3100;
+            } else if (radio.id === 'flexRadioDefault2'){
+                montoFinal.innerHTML = sumaSubTotal + 3400;
+            } else if (radio.id ==='flexRadioDefault3'){
+                montoFinal.innerHTML = sumaSubTotal;
+            }
+        })
+    }
+}
