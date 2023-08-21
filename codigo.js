@@ -190,10 +190,6 @@ function vaciarCarro(){
     actualizarSubTotal();
 }
 
-// document.getElementById(`terminarCompra`).addEventListener('click', () => {
-//     mostrarCompraFinal(carrito);
-// });
-
 function mostrarCompraFinal(){
     document.getElementById('tablabodyTerminar').innerHTML =``
     if (carrito.length != 0) {
@@ -208,40 +204,52 @@ function mostrarCompraFinal(){
         subTotal.innerHTML = sumaSubTotal;
         montoFinal.innerHTML = '$'+sumaSubTotal;
     }
-    elegirEnvio();
+    elegirFormaDePagoYenvio();
 }
 
-// function elegirFormaDePago (){
-
-//     const sumaSubTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
-//     montoFinal.innerHTML = sumaSubTotal;    
-//     document.getElementById(`flexRadioDefault4`).addEventListener('click', () => {
-//         actualizarSubTotal();
-//         montoFinal.innerHTML = '$'+(sumaSubTotal * 0.9).toFixed(2);
-//     });
-//     document.getElementById(`flexRadioDefault5`).addEventListener('click', () => {
-//         actualizarSubTotal();
-//         montoFinal.innerHTML = '$'+(sumaSubTotal);
-//     });
-//     document.getElementById(`flexRadioDefault6`).addEventListener('click', () => {
-//         actualizarSubTotal();
-//         montoFinal.innerHTML = '$'+(sumaSubTotal * 0.9).toFixed(2);
-//     });
-// }
-// elegirFormaDePago();
-
-function elegirEnvio (){
+function elegirFormaDePagoYenvio (){
+    
     const radiosEnvio = document.getElementsByTagName('input');
     const sumaSubTotal = carrito.reduce((acumulador,semilla)=>acumulador+semilla.precio,0);
+    let cuotas = document.getElementById('cuotas');
+    let formaDePago; 
 
     for (const radio of radiosEnvio){
         radio.addEventListener('click',()=>{
-            if (radio.id === 'flexRadioDefault1'){
-                montoFinal.innerHTML = sumaSubTotal + 3100;
+
+            if (radio.id === 'flexRadioDefault4'){
+                formaDePago = (sumaSubTotal * 0.9);
+                montoFinal.innerHTML = '$' + formaDePago;
+                cuotas.innerHTML = ``;
+            } else if (radio.id === 'flexRadioDefault5'){
+                formaDePago = (sumaSubTotal);
+                montoFinal.innerHTML = '$' +  formaDePago;
+                cuotas.innerHTML = ``;
+            } else if (radio.id === 'flexRadioDefault6'){
+                cuotas.innerHTML =`
+                <input class="form-check-input" type="radio" name="cuotas" id="flexRadioDefault7">
+                <label class="form-check-label" for="flexRadioDefault7">3 cuotas</label>
+                <input class="form-check-input" type="radio" name="cuotas" id="flexRadioDefault8">
+                <label class="form-check-label" for="flexRadioDefault8">6 cuotas</label>
+                <input class="form-check-input" type="radio" name="cuotas" id="flexRadioDefault9">
+                <label class="form-check-label" for="flexRadioDefault9">12 cuotas</label>`
+                montoFinal.innerHTML = '$';
+                if (radio.id === 'flexRadioDefault7'){
+                    formaDePago = ((sumaSubTotal * 0.3)/3).toFixed(2);
+                    montoFinal.innerHTML = '3 cuotas de $ ' +  formaDePago;
+                } else if (radio.id === 'flexRadioDefault8'){
+                    formaDePago = ((sumaSubTotal * 0.3)/3).toFixed(2);
+                    montoFinal.innerHTML = '3 cuotas de $ ' +  formaDePago;
+                } else if (radio.id === 'flexRadioDefault9'){
+                    formaDePago = ((sumaSubTotal * 0.3)/3).toFixed(2);
+                    montoFinal.innerHTML = '3 cuotas de $ ' +  formaDePago;
+                }
+            } else if (radio.id === 'flexRadioDefault1'){
+                montoFinal.innerHTML = '$' + (formaDePago + 3100);
             } else if (radio.id === 'flexRadioDefault2'){
-                montoFinal.innerHTML = sumaSubTotal + 3400;
+                montoFinal.innerHTML = '$' + (formaDePago + 3400);
             } else if (radio.id ==='flexRadioDefault3'){
-                montoFinal.innerHTML = sumaSubTotal;
+                montoFinal.innerHTML = '$' + (formaDePago);
             }
         })
     }
